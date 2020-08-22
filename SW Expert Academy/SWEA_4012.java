@@ -1,52 +1,63 @@
 import java.util.Scanner;
- 
-class SWEA_4012 {
-    static int n, map[][], min;
-    static boolean[] v;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        for(int test_case = 1; test_case <= T; test_case++) {
-            n = sc.nextInt();
-            map = new int[n][n];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++)
-                    map[i][j] = sc.nextInt();
-            }
-            v = new boolean[n];
-            min = Integer.MAX_VALUE;
-            dfs(0, 0);
-            System.out.println("#" + test_case + " " + min);
-        }
-    }
-    static void dfs(int num, int cnt) {
-        int sum1, sum2, res;
-        if (cnt > n / 2 || num > n - 1) return;
-        if (cnt == n / 2) {
-            sum1 = 0;
-            sum2 = 0;
-            for (int i = 0; i < n; i++) {
-                if (v[i]) {
-                    for (int j = i + 1; j < n; j++) {
-                        if (v[j])
-                            sum1 += map[i][j] + map[j][i];
-                    }
-                }
-                else {
-                    for (int j = i + 1; j < n; j++) {
-                        if (!v[j])
-                            sum2 += map[i][j] + map[j][i];
-                    }
-                }
-            }
-            res = Math.abs(sum1 - sum2);
-            if (min > res)
-                min = res;
-            return;
-        }
-        v[num] = true;
-        dfs(num + 1, cnt + 1);
-        v[num] = false;
-        dfs(num + 1, cnt);
-    }
+
+class SWEA_4012 { // SWEA 4012 요리사
+	static int n, min, mid, sum;
+	static int[][] map;
+	static int[] num, half1, half2, two;
+	static boolean[] v;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		for (int t = 1; t <= T; t++) {
+			n = sc.nextInt();
+			map = new int[n][n];
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++)
+					map[i][j] = sc.nextInt();
+			}
+			mid = n / 2;
+			v = new boolean[n];
+			half1 = new int[mid];
+			half2 = new int[mid];
+			min = Integer.MAX_VALUE;
+			solve(0, 0);
+			System.out.println("#" + t + " " + min);
+		}
+	}
+	static void solve(int idx, int start) {
+		if (idx == mid) {
+			sum = 0;
+			int cnt = 0;
+			for (int i = 0; i < n; i++) {
+				if (!v[i])
+					half2[cnt++] = i;
+			}
+			two = new int[2];
+			insolve(0, 0, half1);
+			int a = sum;
+			sum = 0;
+			insolve(0, 0, half2);
+			int b = sum;
+			int div = Math.abs(a - b);
+			if (min > div)
+				min = div;
+			return;
+		}
+		for (int i = start; i < n; i++) {
+			half1[idx] = i;
+			v[i] = true;
+			solve(idx + 1, i + 1);
+			v[i] = false;
+		}
+	}
+	static void insolve(int idx, int start, int[] num) {
+		if (idx == 2) {
+			sum += map[two[0]][two[1]] + map[two[1]][two[0]];
+			return;
+		}
+		for (int i = start; i < mid; i++) {
+			two[idx] = num[i];
+			insolve(idx + 1, i + 1, num);
+		}
+	}
 }
