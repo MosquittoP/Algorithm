@@ -1,4 +1,4 @@
-package BOJ;
+
 import java.util.Scanner;
 
 public class BOJ_2573 { // 백준 2573 빙산

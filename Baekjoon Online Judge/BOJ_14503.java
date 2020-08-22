@@ -1,4 +1,4 @@
-package BOJ;
+
 import java.util.Scanner;
 
 public class BOJ_14503 { // 백준 14503 로봇 청소기

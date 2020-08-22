@@ -1,4 +1,4 @@
-package BOJ;
+
 import java.util.Scanner;
 
 public class BOJ_13458 { // 백준 13458 시험 감독

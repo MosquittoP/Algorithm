@@ -1,4 +1,4 @@
-package BOJ;
+
 import java.util.Scanner;
 
 public class BOJ_11726 { // 백준 11726 2×n 타일링

@@ -1,4 +1,4 @@
-package BOJ;
+
 import java.util.Scanner;
 
 public class BOJ_14501 { // 백준 14501 퇴사

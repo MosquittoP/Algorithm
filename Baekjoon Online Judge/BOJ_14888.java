@@ -1,4 +1,4 @@
-package BOJ;
+
 import java.util.Scanner;
 
 public class BOJ_14888 { // 백준 14888 연산자 끼워넣기
